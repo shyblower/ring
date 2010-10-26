@@ -1,23 +1,26 @@
 (ns ring.middleware.session.cookie
   "Encrypted cookie session storage."
-  (:use [clojure.contrib.def :only (defvar-)]
-        ring.middleware.session.store)
-  (:require (ring.util [codec :as codec]))
+  (:use ring.middleware.session.store)
+  (:require [ring.util.codec :as codec])
   (:import java.security.SecureRandom
            (javax.crypto Cipher Mac)
            (javax.crypto.spec SecretKeySpec IvParameterSpec)))
 
-(defvar- seed-algorithm "SHA1PRNG"
-  "Algorithm to seed random numbers.")
+(def ^:private seed-algorithm
+  "Algorithm to seed random numbers."
+  "SHA1PRNG")
 
-(defvar- hmac-algorithm "HmacSHA256"
-  "Algorithm to generate a HMAC.")
+(def ^:private hmac-algorithm
+  "Algorithm to generate a HMAC."
+  "HmacSHA256")
 
-(defvar- crypt-type "AES"
-  "Type of encryption to use.")
+(def ^:private crypt-type
+  "Type of encryption to use."
+  "AES")
 
-(defvar- crypt-algorithm "AES/CBC/PKCS5Padding"
-  "Full algorithm to encrypt data with.")
+(def ^:private crypt-algorithm
+  "Full algorithm to encrypt data with."
+  "AES/CBC/PKCS5Padding")
 
 (defn- secure-random-bytes
   "Returns a random byte array of the specified size."
