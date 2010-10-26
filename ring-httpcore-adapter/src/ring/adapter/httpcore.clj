@@ -26,12 +26,12 @@
              Executors Executor ThreadFactory))
   (:use [clojure.contrib.except :only (throwf)]))
 
-(defmacro ^{:private true} -?>
+(defmacro ^:private -?>
  ([form] form)
  ([form next-form & forms]
    `(when-let [x# ~form] (-?> (-> x# ~next-form) ~@forms))))
 
-(defmacro ^{:private true} instance?-> [type x & forms]
+(defmacro ^:private instance?-> [type x & forms]
   `(when (instance? ~type ~x) (-> ~(vary-meta x assoc :tag type) ~@forms)))
 
 (defn- charset [^BasicHeader content-type-header]
