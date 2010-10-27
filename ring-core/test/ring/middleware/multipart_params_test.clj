@@ -1,20 +1,18 @@
 (ns ring.middleware.multipart-params-test
   (:use clojure.test
-        ring.middleware.multipart-params
-        [clojure.contrib.def :only (defvar-)])
-  (:require [clojure.contrib.duck-streams :as du]
-            [ring.util.test :as tu])
+        ring.middleware.multipart-params)
+  (:require [ring.util.test :as tu])
   (:import java.io.File))
 
-(defvar- upload-content-type
+(def ^:private upload-content-type
   "multipart/form-data; boundary=----WebKitFormBoundaryAyGUY6aMxOI6UF5s")
 
-(defvar- upload-content-length 188)
+(def ^:private upload-content-length 188)
 
-(defvar- upload-body (tu/string-input-stream
+(def ^:private upload-body (tu/string-input-stream
   "------WebKitFormBoundaryAyGUY6aMxOI6UF5s\r\nContent-Disposition: form-data; name=\"upload\"; filename=\"test.txt\"\r\nContent-Type: text/plain\r\n\r\nfoo\r\n\r\n------WebKitFormBoundaryAyGUY6aMxOI6UF5s--"))
 
-(defvar- wrapped-echo (wrap-multipart-params identity))
+(def ^:private wrapped-echo (wrap-multipart-params identity))
 
 (deftest test-wrap-multipart-params
   (let [req {:content-type   upload-content-type
@@ -28,4 +26,4 @@
       (is (= 5 (:size upload)))
       (is (= "text/plain" (:content-type upload)))
       (is (instance? File (:tempfile upload)))
-      (is (= "foo\r\n" (du/slurp* (:tempfile upload)))))))
+      (is (= "foo\r\n" (slurp (:tempfile upload)))))))
