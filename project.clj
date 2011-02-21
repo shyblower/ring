@@ -7,7 +7,8 @@
      [ring/ring-jetty-adapter "0.3.6"]
      [ring/ring-servlet "0.3.6"]]
   :dev-dependencies
-    [[autodoc "0.7.1" :exclusions [org.clojure/clojure
+    [[lein-eclipse "1.0.0"]
+     [autodoc "0.7.1" :exclusions [org.clojure/clojure
                                    org.clojure/clojure-contrib]]]
   :autodoc
     {:name "Ring"

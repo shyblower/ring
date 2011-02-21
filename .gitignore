@@ -1,5 +1,6 @@
 lib
 classes
+classes-eclipse
 ring-*.jar
 ring.jar
 ring-standalone.jar
