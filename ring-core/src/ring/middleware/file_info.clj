@@ -119,5 +119,7 @@
   [handler & [custom-mime-types]]
   (let [mime-types (merge base-mime-types custom-mime-types)]
     (fn [request]
-      (let [{:keys [uri]} request]
-        (res/content-type (handler request) (guess-mime-type uri mime-types)) ))))
+      (let [response (handler request)]
+        (if response
+          (let [{:keys [uri]} request]
+            (res/content-type response (guess-mime-type uri mime-types)) ))))))

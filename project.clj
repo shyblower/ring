@@ -5,6 +5,7 @@
     [[ring/ring-core "0.3.6"]
      [ring/ring-devel "0.3.6"]
      [ring/ring-jetty-adapter "0.3.6"]
+     [ring/ring-jetty7-adapter "0.3.6"]
      [ring/ring-servlet "0.3.6"]]
   :dev-dependencies
     [[lein-eclipse "1.0.0"]
